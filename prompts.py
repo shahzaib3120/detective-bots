@@ -134,4 +134,6 @@ After your analysis, you must output your vote as a JSON object exactly in this 
   "vote": "Full Name of Agent"
 }}
 ```
+
+{retry_guidance}
 """

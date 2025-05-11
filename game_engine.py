@@ -75,7 +75,7 @@ class GameEngine:
         question = self._generate_question(questioner, round_number)
 
         # Add a debug print
-        print(f"Question generated: {question}")
+        # print(f"[{self.model_name}] Question generated: {question}")
 
         # Get answers from all other agents
         answers = {}
@@ -85,7 +85,7 @@ class GameEngine:
                     agent, questioner, question, round_number
                 )
                 # Add a debug print
-                print(f"Answer from {agent.name}: {answer}")
+                # print(f"Answer from {agent.name}: {answer}")
                 answers[agent.name] = answer.strip()  # Ensure clean strings
 
         # Record this round in history
@@ -163,20 +163,33 @@ class GameEngine:
             personality_prompt = PERSONALITY_PROMPTS[agent.personality_type]
             conversation_history = self._format_conversation_history()
 
-            prompt_vars = {
-                "base_context": BASE_GAME_CONTEXT,
-                "personality_prompt": personality_prompt,
-                "agent_name": agent.name,
-                "personality_type": agent.personality_type,
-                "rounds_played": len(self.conversation_history),
-                "conversation_history": conversation_history,
-                "agent_names": agent_names_str,
-                "agent_names_list": all_agent_names,
-            }
-
             # Try up to 3 times to get a valid vote
             max_attempts = 3
             for attempt in range(max_attempts):
+                # Add retry context to help guide the model better on retry attempts
+                retry_guidance = ""
+                previous_error = ""
+                if attempt > 0:
+                    retry_guidance = (
+                        f"IMPORTANT: Previous response could not be used. "
+                        f"You must format your response as valid JSON and vote for an agent that is not yourself. "
+                        f"Valid agents to vote for (excluding yourself): "
+                        f"{', '.join([a.name for a in self.agents if a.name != agent.name])}"
+                        f" Previous error: {previous_error}"
+                    )
+
+                prompt_vars = {
+                    "base_context": BASE_GAME_CONTEXT,
+                    "personality_prompt": personality_prompt,
+                    "agent_name": agent.name,
+                    "personality_type": agent.personality_type,
+                    "rounds_played": len(self.conversation_history),
+                    "conversation_history": conversation_history,
+                    "agent_names": agent_names_str,
+                    "agent_names_list": all_agent_names,
+                    "retry_guidance": retry_guidance,
+                }
+
                 try:
                     vote_response = run_llm_query(
                         model=self.model_name,
@@ -205,28 +218,23 @@ class GameEngine:
                     reasoning = vote_data.get("reasoning", "").strip()
 
                     # Validate the vote target is an actual agent name
-                    valid_agent = False
-                    for other_agent in self.agents:
-                        if (
-                            other_agent.name == vote_target
-                            and other_agent.name != agent.name
-                        ):
-                            valid_agent = True
-                            break
-
-                    if not valid_agent:
-                        # If invalid vote, try again or fall back
+                    valid_agents = [a.name for a in self.agents if a.name != agent.name]
+                    if vote_target not in valid_agents:
+                        print(
+                            f"[{self.model_name}] Invalid vote from {agent.name} (attempt {attempt + 1}): '{vote_target}' is not a valid agent"
+                        )
+                        raise ValueError(
+                            f"Invalid vote target: {vote_target}. Must be one of {valid_agents}."
+                        )
                         if attempt < max_attempts - 1:
-                            print(
-                                f"Invalid vote from {agent.name} (attempt {attempt + 1}): {vote_target}"
-                            )
-                            continue
+                            continue  # Try again with better guidance
 
                         # Last resort: pick random agent that's not self
-                        other_agents = [a for a in self.agents if a != agent]
-                        vote_target = random.choice(other_agents).name
+                        original_vote = vote_target
+                        vote_target = random.choice(valid_agents)
+                        reasoning = f"{reasoning} [Note: Original vote '{original_vote}' was invalid, randomly selected instead]"
                         print(
-                            f"Warning: {agent.name} vote invalid after {max_attempts} attempts, using random: {vote_target}"
+                            f"[{self.model_name}] Warning: {agent.name} vote invalid after {max_attempts} attempts, using random: {vote_target}"
                         )
                     else:
                         # Valid vote, exit retry loop
@@ -234,17 +242,18 @@ class GameEngine:
 
                 except Exception as e:
                     print(
-                        f"Error parsing vote JSON for {agent.name} (attempt {attempt + 1}): {e}"
+                        f"[{self.model_name}] Error parsing vote JSON for {agent.name} (attempt {attempt + 1}): {e}"
                     )
+                    previous_error = str(e)
                     if attempt < max_attempts - 1:
-                        continue
+                        continue  # Try again with better guidance
 
                     # Last attempt failed, use random agent
-                    other_agents = [a for a in self.agents if a != agent]
-                    vote_target = random.choice(other_agents).name
-                    reasoning = f"Error processing vote: {str(e)}"
+                    valid_agents = [a.name for a in self.agents if a.name != agent.name]
+                    vote_target = random.choice(valid_agents)
+                    reasoning = f"[Error processing vote: {str(e)}. Random vote generated as fallback]"
                     print(
-                        f"Warning: {agent.name} vote couldn't be parsed, using random: {vote_target}"
+                        f"[{self.model_name}] Warning: {agent.name} vote couldn't be parsed, using random: {vote_target}"
                     )
 
             votes[agent.name] = {"vote": vote_target, "reasoning": reasoning}
