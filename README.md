@@ -35,7 +35,7 @@ Each agent has a distinct personality that influences how they ask questions and
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/detective-bots.git
+   git clone https://github.com/shahzaib3120/detective-bots.git
    cd detective-bots
    ```
 
