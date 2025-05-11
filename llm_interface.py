@@ -12,7 +12,7 @@ load_dotenv()
 def get_available_models() -> List[str]:
     """Return a list of available LLM models"""
     # You can customize this list based on the models you want to support
-    return ["gpt-4o-mini", "gpt-3.5-turbo", "gemini-2.0-flash-lite", "claude-3-sonnet"]
+    return ["gemini-2.0-flash-lite", "gpt-4o-mini", "gpt-3.5-turbo", "claude-3-sonnet"]
 
 
 def run_llm_query(model: str, prompt_template: str, prompt_vars: Dict[str, Any]) -> str:
