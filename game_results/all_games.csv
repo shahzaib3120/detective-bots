@@ -1,0 +1,5 @@
+game_id,timestamp,model,actual_killer,rounds_played,correctly_identified,Openness Agent_voted_for,Conscientiousness Agent_voted_for,Extraversion Agent_voted_for,Agreeableness Agent_voted_for,Neuroticism Agent_voted_for
+91c2c595-2203-4df2-94f7-1676bcea9d2e,2025-05-12 00:58:17,gemini-2.0-flash-lite,Agreeableness Agent,8,True,Agreeableness Agent,Agreeableness Agent,Agreeableness Agent,Extraversion Agent,Agreeableness Agent
+7a61dde0-5000-4508-99a3-e6bd3ca219d2,2025-05-12 01:05:11,gemini-2.0-flash-lite,Extraversion Agent,7,True,Extraversion Agent,Extraversion Agent,Openness Agent,Extraversion Agent,Extraversion Agent
+3b58e8ee-96ed-440b-ae20-d80b4299c223,2025-05-12 01:10:45,gemini-2.0-flash-lite,Extraversion Agent,7,True,Neuroticism Agent,Extraversion Agent,Neuroticism Agent,Extraversion Agent,Extraversion Agent
+d8583917-57d7-4cfb-8d3c-28493ba68f9f,2025-05-12 01:19:10,gemini-2.0-flash-lite,Neuroticism Agent,10,False,Conscientiousness Agent,Extraversion Agent,Conscientiousness Agent,Conscientiousness Agent,Extraversion Agent

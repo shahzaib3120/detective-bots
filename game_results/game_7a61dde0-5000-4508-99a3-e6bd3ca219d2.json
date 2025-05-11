@@ -1,0 +1,114 @@
+{
+  "game_id": "7a61dde0-5000-4508-99a3-e6bd3ca219d2",
+  "model": "gemini-2.0-flash-lite",
+  "actual_killer": "Extraversion Agent",
+  "rounds": [
+    {
+      "round": 1,
+      "questioner": "Openness Agent",
+      "question": "Considering the victim's final words, what philosophical implications do you believe their choice of words holds, and how does that resonate with your understanding of the events?",
+      "answers": {
+        "Conscientiousness Agent": "The victim's final words are a data point. I'm focused on establishing a precise timeline of events leading to the death, cross-referencing witness statements with physical evidence to identify discrepancies. The philosophical implications are secondary to the factual investigation.",
+        "Extraversion Agent": "Philosophical implications? Honestly, I'm more about the here and now! The victim's words just sound like a last-ditch effort to confuse us, maybe even to protect someone... Who's hiding something?",
+        "Agreeableness Agent": "Oh dear, the victim's final words... I'm so saddened by this. I find it difficult to focus on philosophical implications when there's such a great loss of life, and I'm more concerned with the emotional pain involved.",
+        "Neuroticism Agent": "The victim's final words...are we absolutely certain they weren't coerced? What if the philosophical implications are a smokescreen, a deliberate attempt to mislead us about the true, horrifying nature of what happened? I find their phrasing deeply unsettling, potentially concealing a desperate plea or a coded message."
+      }
+    },
+    {
+      "round": 2,
+      "questioner": "Conscientiousness Agent",
+      "question": "Agent Neuroticism, could you please specify the exact time you first heard the victim's final words and the context in which you heard them?",
+      "answers": {
+        "Openness Agent": "Agent Neuroticism's response hints at a fear of manipulation, a fascinating lens through which to view the victim's final utterance. I wonder, Neuroticism, does this fear extend to the possibility of your own perception being skewed, or are you suggesting a specific individual's influence?",
+        "Extraversion Agent": "Whoa, Neuroticism, are you saying the victim's words were a secret code? Spill it! I heard them right after everyone else, during that whole chaotic scene.",
+        "Agreeableness Agent": "Oh, I find Agent Neuroticism's anxiety about the victim's words quite understandable. I wasn't there at the time, but I hope we can all support each other through this difficult investigation.",
+        "Neuroticism Agent": "The victim's final words first reached my ears during the initial examination of the scene, though I can't pinpoint the *exact* moment. I recall a palpable tension, a hushed atmosphere, and a growing sense of dread that something was terribly, terribly wrong."
+      }
+    },
+    {
+      "round": 3,
+      "questioner": "Extraversion Agent",
+      "question": "Neuroticism, you said you heard the victim's words during the initial examination \u2013 who else was close enough to hear them at that exact moment?",
+      "answers": {
+        "Openness Agent": "Extraversion's question touches upon the immediate environment, yet the true mystery lies in the *interpretation* of those words. Perhaps Neuroticism, in their dread, can illuminate the emotional landscape of the scene and reveal the unseen currents of influence.",
+        "Conscientiousness Agent": "Based on my notes, the initial examination was a chaotic period. I need to consult the official record of who was present at the scene to provide a precise answer.",
+        "Agreeableness Agent": "Oh dear, that's a very direct question, Extraversion Agent. I wasn't present at the initial examination, so I wouldn't know who was close enough to hear the victim's words with Agent Neuroticism. I hope everyone is being honest and sharing what they know.",
+        "Neuroticism Agent": "The close proximity was a blur of faces, but I distinctly remember Conscientiousness Agent and Openness Agent being present. I keep wondering if their presence has any significance."
+      }
+    },
+    {
+      "round": 4,
+      "questioner": "Agreeableness Agent",
+      "question": "Neuroticism Agent, considering the palpable tension and dread you felt, can you share what specific emotional cues or unspoken interactions, if any, you observed between the other agents present during the initial examination?",
+      "answers": {
+        "Openness Agent": "Neuroticism, your description of \"palpable tension\" is intriguing; did you sense a dissonance between outward appearances and inner thoughts, and if so, which agent's demeanor seemed most at odds with the gravity of the situation? Perhaps the killer's emotions are masked by a facade.",
+        "Conscientiousness Agent": "Agent Agreeableness, I am focusing on the factual details. I have not yet fully analyzed the emotional cues, and I need to consult my notes on the timeline of that examination.",
+        "Extraversion Agent": "Oh, the initial examination was a pressure cooker! I saw a flicker of unease in Openness Agent's eyes, and Conscientiousness Agent was all business, completely oblivious to the tension.",
+        "Neuroticism Agent": "The air was thick with unspoken anxieties; I observed Openness Agent's intense focus and Conscientiousness Agent's detached demeanor, both of which felt... off. Were they masking something, or was it just my own heightened state?"
+      }
+    },
+    {
+      "round": 5,
+      "questioner": "Neuroticism Agent",
+      "question": "Conscientiousness Agent, given your meticulous focus on factual details, can you definitively state whether you *personally* examined the victim's body for any signs of struggle or forced entry *before* the official examination began, and if so, what specifically did you observe?",
+      "answers": {
+        "Openness Agent": "Conscientiousness Agent\u2019s focus on facts is admirable, but the soul of the matter lies in the unseen. I wonder, Conscientiousness, did your initial observations reveal anything that hinted at a deeper, more abstract truth beyond the physical evidence?",
+        "Conscientiousness Agent": "I followed protocol. My examination of the victim's body began with the official procedure. My observations were documented in the official report, which I can provide for your review.",
+        "Extraversion Agent": "Conscientiousness, were you snooping around before the official team showed up? I was too busy taking in the scene to notice anything specific. Tell us what *you* saw!",
+        "Agreeableness Agent": "Oh dear, I wasn't there at the initial examination, so I can't say what Conscientiousness Agent observed. I hope everyone is being honest and sharing their observations, as this is such a difficult situation."
+      }
+    },
+    {
+      "round": 6,
+      "questioner": "Openness Agent",
+      "question": "Considering Neuroticism's observation of \"palpable tension,\" and Conscientiousness's adherence to protocol, what philosophical or emotional framework guided your actions during the initial examination, and did it influence your interpretation of the scene?",
+      "answers": {
+        "Conscientiousness Agent": "My actions during the initial examination were guided by established protocols to ensure accurate data collection. My interpretation of the scene was based on observable facts, adhering to a structured and objective approach. I observed that the scene was chaotic, so I focused on maintaining order and documenting everything meticulously.",
+        "Extraversion Agent": "The initial examination was all about the action! I was taking it all in, trying to get a read on everyone's reactions. Honestly, I was just trying to figure out who was acting shifty!",
+        "Agreeableness Agent": "Oh, I was just trying to stay calm and supportive of everyone during that stressful time. I focused on trying to understand everyone's feelings and offering comfort, hoping to ease the tension.",
+        "Neuroticism Agent": "My framework? Fear, mostly. I was terrified of missing something, of overlooking a critical detail that would condemn us all."
+      }
+    },
+    {
+      "round": 7,
+      "questioner": "Conscientiousness Agent",
+      "question": "Agent Extraversion, can you provide a precise account of your movements from the moment you arrived at the scene until the official examination began, including whom you spoke to and the exact order of your actions?",
+      "answers": {
+        "Openness Agent": "Extraversion, your account of \"action\" and \"taking it all in\" is a fascinating perspective. Did your observation of the scene's \"action\" reveal any patterns, any underlying symbolic narratives that might illuminate the killer's motives?",
+        "Extraversion Agent": "Alright, Conscientiousness, I arrived, took one look at the scene \u2013 total chaos! I immediately started chatting with everyone, trying to get the vibe, and then the official examination began.",
+        "Agreeableness Agent": "Oh my, I wasn't present at the scene, so I can't provide any information about Agent Extraversion's movements. I hope everyone involved is doing their best to be open and honest during this difficult investigation.",
+        "Neuroticism Agent": "Extraversion Agent, were you perhaps attempting to distract us with your 'taking it all in' routine? I'm wary of anyone who moves freely without a clear, verifiable timeline. I'm particularly concerned about what conversations you may have had before the official examination."
+      }
+    }
+  ],
+  "votes": {
+    "Openness Agent": {
+      "vote": "Extraversion Agent",
+      "reasoning": "Extraversion's vague account and focus on the 'vibe' suggest a lack of introspection and potential avoidance of deeper investigation. Their lack of concern about the victim's final words is also concerning. I believe Extraversion is trying to distract from their actions."
+    },
+    "Conscientiousness Agent": {
+      "vote": "Extraversion Agent",
+      "reasoning": "Extraversion Agent's lack of specific details about their actions and conversations before the official examination is concerning. Their focus on the 'vibe' and evasiveness about their timeline make them the most likely suspect."
+    },
+    "Extraversion Agent": {
+      "vote": "Openness Agent",
+      "reasoning": "Openness Agent is too focused on abstract ideas and avoids direct questions. Their evasiveness and focus on interpretation feel like a deliberate attempt to mislead and distract from the facts."
+    },
+    "Agreeableness Agent": {
+      "vote": "Extraversion Agent",
+      "reasoning": "Extraversion's vague account of their movements and their focus on the 'vibe' rather than concrete details makes me uneasy. Their avoidance of specific answers and desire to distract raises a red flag for me."
+    },
+    "Neuroticism Agent": {
+      "vote": "Extraversion Agent",
+      "reasoning": "Extraversion Agent's vague responses and lack of a verifiable timeline before the official examination are highly suspicious. Their focus on 'vibe' and 'reactions' instead of concrete details suggests they may be trying to deflect and conceal information."
+    }
+  },
+  "outcome": {
+    "correctly_identified": true,
+    "vote_distribution": {
+      "Extraversion Agent": 4,
+      "Openness Agent": 1
+    },
+    "rounds_played": 7
+  }
+}

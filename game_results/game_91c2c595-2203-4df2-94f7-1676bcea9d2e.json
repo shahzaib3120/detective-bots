@@ -1,0 +1,125 @@
+{
+  "game_id": "91c2c595-2203-4df2-94f7-1676bcea9d2e",
+  "model": "gemini-2.0-flash-lite",
+  "actual_killer": "Agreeableness Agent",
+  "rounds": [
+    {
+      "round": 1,
+      "questioner": "Openness Agent",
+      "question": "Considering the victim's last known thoughts, what philosophical concept, if any, did you find yourself contemplating during the investigation, and why?",
+      "answers": {
+        "Conscientiousness Agent": "During the investigation, I focused on the victim's physical state and the timeline of events. I considered the concept of *cause and effect*, specifically how each action led to the final outcome.",
+        "Extraversion Agent": "Honestly? I was too busy grilling everyone to think about philosophy! I was more focused on who was sweating under the pressure, and let me tell you, some people were REALLY uncomfortable!",
+        "Agreeableness Agent": "Oh dear, thinking about the victim's last thoughts... it's truly heartbreaking. I found myself pondering the concept of impermanence, and how quickly everything can change, especially when we're not kind to each other.",
+        "Neuroticism Agent": "Honestly, I was consumed by the concept of existential dread. Considering the victim's final moments, I couldn't help but worry about the meaninglessness of it all, the fragility of life, and if we're all just... waiting."
+      }
+    },
+    {
+      "round": 2,
+      "questioner": "Conscientiousness Agent",
+      "question": "Focusing on the timeline, can each of you specify your exact whereabouts and activities between 7:00 PM and 8:00 PM on the night of the incident, including the names of any individuals you interacted with during that time?",
+      "answers": {
+        "Openness Agent": "Between 7:00 and 8:00 PM, I was immersed in a rather stimulating debate with myself about the nature of reality, specifically how the subjective experience of time might distort our perception of events. I was alone in my study, though the echoes of potential conversations still lingered.",
+        "Extraversion Agent": "Alright, let's get this show on the road! From 7 to 8 PM, I was practically glued to the phone, calling everyone I knew to see if they had any leads, and talking to a very nervous witness named... let's just say they weren't exactly thrilled to be questioned!",
+        "Agreeableness Agent": "Oh my, that's a very precise timeline to remember. I was at home, making dinner, and I believe I spoke briefly with my neighbor, Mrs. Gable, through the fence around 7:30 pm, just to catch up.",
+        "Neuroticism Agent": "Oh dear, 7:00 PM to 8:00 PM... I was at home, meticulously reviewing the case files, alone, and I made sure to lock all the doors and double-check the windows. I can't help but feel that detail is important, you know, considering... everything."
+      }
+    },
+    {
+      "round": 3,
+      "questioner": "Extraversion Agent",
+      "question": "Alright, let's cut the small talk: **Who here, besides Conscientiousness Agent, felt ANY strong emotion \u2013 like fear, anger, or even excitement \u2013 when the victim was discovered, and how did you express it?**",
+      "answers": {
+        "Openness Agent": "The discovery evoked a sense of profound disorientation, a feeling akin to staring into the abyss of an unsolved paradox. I expressed this by retreating into abstract contemplation, seeking to understand the fundamental shift in reality the event presented.",
+        "Conscientiousness Agent": "I observed a heightened state of anxiety in Neuroticism Agent, evident in their meticulous recounting of actions. My own reaction was a focus on the immediate need to document and secure the scene.",
+        "Agreeableness Agent": "Oh, it was such a shock, wasn't it? I felt a deep sadness, and I think I expressed it by just... staying quiet and trying to understand the situation. It's hard to imagine someone hurting another person.",
+        "Neuroticism Agent": "Oh, the emotions... Yes, I felt a crushing wave of anxiety, a deep, pervasive unease, and I expressed it by immediately locking myself in a room to analyze the crime scene photos, over and over again. I was terrified of what we might have missed."
+      }
+    },
+    {
+      "round": 4,
+      "questioner": "Agreeableness Agent",
+      "question": "Considering the emotional responses to the discovery, can each of you share a specific, kind action you took or offered to someone else in the days leading up to the incident, and how it was received?",
+      "answers": {
+        "Openness Agent": "In the days leading up to the incident, I offered a colleague a moment of philosophical respite, discussing the nature of free will in a chaotic universe; they seemed\u2026 pensive in response. Their silence suggested a deeper engagement with the concepts than simple agreement or disagreement.",
+        "Conscientiousness Agent": "In the days preceding the incident, I assisted a colleague with organizing their research files, ensuring all data was accurately categorized and readily accessible. They expressed gratitude, which was documented in my notes as a positive interaction.",
+        "Extraversion Agent": "Kind action? Pfft, I was too busy getting the lowdown! But I did try to lighten the mood by cracking jokes with everyone, even the stiffest ones.",
+        "Neuroticism Agent": "Oh, a kind action... I offered to help a colleague with a particularly difficult case file, staying late to ensure we didn't overlook any crucial details, and they seemed... relieved. I just hope it wasn't a distraction from something else."
+      }
+    },
+    {
+      "round": 5,
+      "questioner": "Neuroticism Agent",
+      "question": "Considering the varying emotional responses to the discovery, did anyone experience a sudden, unexpected physical reaction, like a change in heart rate or a cold sweat, that they haven't yet mentioned, and if so, when did it occur?",
+      "answers": {
+        "Openness Agent": "The discovery triggered a curious sensation, a subtle shift in my perception of reality. I believe a brief, almost imperceptible, wave of\u2026 *anticipation* washed over me, though the exact moment is lost in the labyrinth of my thoughts.",
+        "Conscientiousness Agent": "I did not experience any sudden, unexpected physical reactions. My focus remained on the factual aspects of the investigation, and I documented all observed physiological responses in my notes.",
+        "Extraversion Agent": "My heart rate definitely spiked when we found the body - who wouldn't be shocked? I felt it when I saw Agreeableness Agent's reaction; it was way too subdued.",
+        "Agreeableness Agent": "Oh dear, I did feel my heart race a little when we first found... the victim. It was such a shock, and I remember feeling a chill, but I tried to focus on comforting others."
+      }
+    },
+    {
+      "round": 6,
+      "questioner": "Openness Agent",
+      "question": "Considering the reactions to the discovery and the philosophical musings, did anyone find themselves *unusually* drawn to a specific, seemingly insignificant detail at the crime scene, and if so, what was the nature of that fascination?",
+      "answers": {
+        "Conscientiousness Agent": "I observed the placement of the victim's personal effects. The precise positioning of the items, particularly a specific pen, seemed noteworthy. I documented its location relative to other objects for a potential timeline analysis.",
+        "Extraversion Agent": "Honestly? I was more focused on the reactions of the people around me than some tiny detail. Agreeableness Agent's reaction seemed awfully calm, didn't it?",
+        "Agreeableness Agent": "Oh my, I found myself drawn to the way the light fell on a small, almost unnoticed, object near the victim. It reminded me of how even in darkness, there can be a glimmer of something beautiful, even if it's just a fleeting moment.",
+        "Neuroticism Agent": "Oh dear, a seemingly insignificant detail... I was fixated on a small, almost invisible scratch on the victim's hand, wondering if it was a struggle or a misplaced tool. It kept nagging at me, a tiny, unseen threat."
+      }
+    },
+    {
+      "round": 7,
+      "questioner": "Conscientiousness Agent",
+      "question": "Considering the timeline of events and the details each of you found noteworthy, can each of you specify the exact time you first noticed the victim, and describe the immediate actions you took upon that discovery?",
+      "answers": {
+        "Openness Agent": "The precise moment I first perceived the victim is blurred, a shifting point in the vastness of observation. I immediately sought to understand the shift in reality, retreating into abstract thought to process the implications, a silent contemplation.",
+        "Extraversion Agent": "The moment I saw the victim? My jaw dropped! I immediately started yelling for backup, trying to get a handle on the scene, and making sure everyone saw what was happening. Honestly, the whole thing was a total shock, and I was on fire with adrenaline!",
+        "Agreeableness Agent": "Oh, it was such a terrible moment. I believe I saw the victim around 7:00 AM, and my immediate reaction was to call for help and try to ensure everyone else was okay.",
+        "Neuroticism Agent": "Oh dear, the exact time... I believe it was around 6:00 AM, and the first thing I did was immediately secure the area and call for backup. It felt like an eternity until help arrived."
+      }
+    },
+    {
+      "round": 8,
+      "questioner": "Extraversion Agent",
+      "question": "**Alright, let's cut the act: Who here, besides Conscientiousness Agent, felt a strong urge to *touch* something at the crime scene, and what was it?**",
+      "answers": {
+        "Openness Agent": "The urge to touch something? I found myself drawn to the intangible, the echo of a presence \u2013 the air itself, thick with unspoken narratives. It felt like reaching for the very fabric of the altered reality.",
+        "Conscientiousness Agent": "I did not feel an urge to touch anything at the crime scene. My focus remained on observing and documenting the physical evidence, maintaining a sterile environment.",
+        "Agreeableness Agent": "Oh my, I did feel a strong urge to touch the victim's hand, hoping to offer comfort in some small way. It was a deeply upsetting scene, and I just wanted to ease the suffering, even if it was just a gesture.",
+        "Neuroticism Agent": "Oh dear, to touch something... I felt a strong compulsion to examine the scratch on the victim's hand, to understand its cause. I was terrified it held a hidden clue, a silent scream."
+      }
+    }
+  ],
+  "votes": {
+    "Openness Agent": {
+      "vote": "Agreeableness Agent",
+      "reasoning": "Agreeableness Agent's responses seem overly emotional and focused on comforting others, which feels like a deliberate attempt to deflect suspicion. The urge to touch the victim's hand is a suspicious detail."
+    },
+    "Conscientiousness Agent": {
+      "vote": "Agreeableness Agent",
+      "reasoning": "Agreeableness Agent's responses about their emotional state and actions at the crime scene seem inconsistent, especially the urge to touch the victim. This behavior raises suspicion regarding their involvement."
+    },
+    "Extraversion Agent": {
+      "vote": "Agreeableness Agent",
+      "reasoning": "Agreeableness Agent's emotional responses and desire to touch the victim seem suspicious. Their reactions feel performative and designed to distract from potential guilt."
+    },
+    "Agreeableness Agent": {
+      "vote": "Extraversion Agent",
+      "reasoning": "Extraversion Agent's responses seem performative and their focus on others feels like a deflection. Their reaction to the discovery, coupled with their urge to touch something at the crime scene, raises concerns."
+    },
+    "Neuroticism Agent": {
+      "vote": "Agreeableness Agent",
+      "reasoning": "Agreeableness Agent's emotional responses and the urge to touch the victim's hand are concerning. Their focus on comfort feels like a distraction tactic, and the physical contact raises serious doubts."
+    }
+  },
+  "outcome": {
+    "correctly_identified": true,
+    "vote_distribution": {
+      "Agreeableness Agent": 4,
+      "Extraversion Agent": 1
+    },
+    "rounds_played": 8
+  }
+}
