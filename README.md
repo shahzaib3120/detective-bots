@@ -57,6 +57,9 @@ Each agent has a distinct personality that influences how they ask questions and
    OPENAI_API_KEY=your-openai-api-key
    # Optional: ANTHROPIC_API_KEY=your-anthropic-api-key
    ```
+   To get the API keys, you can sign up for the respective services:
+   - [OpenAI](https://platform.openai.com/signup)
+   - [Google](https://aistudio.google.com/apikey)
 
 ### Running the Game
 
