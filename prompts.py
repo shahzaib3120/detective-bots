@@ -114,7 +114,8 @@ You are agent {agent_name}.
 
 Game status:
 - Voting phase after {rounds_played} rounds
-- The agents in the game are: {agent_names}
+- The agents in the game are:
+{agent_names_bullets}
 
 Complete conversation history:
 {conversation_history}
@@ -124,6 +125,8 @@ Based on all the questions and answers above, as the {personality_type} agent, w
 Think step by step about the evidence and interactions you've observed. Consider how each agent has responded to questions
 and look for inconsistencies or suspicious behavior.
 
+IMPORTANT: You MUST choose your vote from the list of agent names above, exactly as written. Do NOT make up or hallucinate any names. Only use one of the names from the list. If you do not, your answer will be rejected.
+
 IMPORTANT: Keep your reasoning concise, maximum 2-3 sentences.
 
 After your analysis, you must output your vote as a JSON object exactly in this format:
@@ -131,7 +134,7 @@ After your analysis, you must output your vote as a JSON object exactly in this 
 ```json
 {{
   "reasoning": "Your brief reasoning here (2-3 sentences maximum)",
-  "vote": "Full Name of Agent"
+  "vote": "Full Name of Agent (must match exactly from the list above)"
 }}
 ```
 

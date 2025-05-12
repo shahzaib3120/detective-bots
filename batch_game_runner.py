@@ -13,6 +13,7 @@ import itertools
 
 from game_engine import GameEngine
 from llm_interface import get_available_models
+from utils import save_game_results
 
 # Load environment variables
 load_dotenv()
@@ -28,127 +29,116 @@ def run_single_game(model_name, game_id=None):
     # Initialize game engine
     game_engine = GameEngine(model_name)
     game_log = []
+    votes = {}
+    outcome = None
+    rounds_played = 0
 
-    # Run 5 rounds
+    # Run rounds 1-5 without voting
     for round_num in range(1, 6):
         try:
             round_results = game_engine.run_round(round_num)
             game_log.append(round_results)
+            rounds_played += 1
         except Exception as e:
             print(f"Error in round {round_num} of game {game_id}: {str(e)}")
             return None
 
-    # Conduct voting
+    # After round 5, after each round, conduct voting and check for majority
+    for round_num in range(6, 21):
+        try:
+            # Conduct voting after round 5 and after each subsequent round
+            votes = game_engine.conduct_voting()
+            vote_counts = {}
+            for agent, vote_info in votes.items():
+                target = vote_info["vote"]
+                vote_counts[target] = vote_counts.get(target, 0) + 1
+
+            # Check for majority (3+ votes for any agent)
+            majority_agent = None
+            for agent, count in vote_counts.items():
+                if count >= 3:
+                    majority_agent = agent
+                    break
+
+            outcome = {
+                "majority_found": majority_agent is not None,
+                "majority_agent": majority_agent,
+                "vote_distribution": vote_counts,
+                "rounds_played": rounds_played,
+                "correctly_identified": majority_agent == game_engine.killer.name
+                if majority_agent
+                else False,
+            }
+
+            # Compile results and save after each voting
+            results = {
+                "game_id": game_id,
+                "model": model_name,
+                "actual_killer": game_engine.killer.name,
+                "rounds": list(game_log),
+                "votes": dict(votes),
+                "outcome": dict(outcome),
+            }
+            save_game_results(results)
+
+            if majority_agent:
+                print(
+                    f"Game {game_id} completed. Majority vote for {majority_agent}. Killer: {game_engine.killer.name}. Correctly identified: {outcome['correctly_identified']} by {model_name} LLM."
+                )
+                return results
+
+            # If not, play next round
+            if round_num <= 10:
+                try:
+                    round_results = game_engine.run_round(round_num)
+                    game_log.append(round_results)
+                    rounds_played += 1
+                except Exception as e:
+                    print(f"Error in round {round_num} of game {game_id}: {str(e)}")
+                    return None
+        except Exception as e:
+            print(
+                f"Error in voting after round {round_num - 1} of game {game_id}: {str(e)}"
+            )
+            return None
+
+    # If no majority after 10 rounds, conduct final voting
     try:
         votes = game_engine.conduct_voting()
-
-        # Count votes
         vote_counts = {}
         for agent, vote_info in votes.items():
             target = vote_info["vote"]
             vote_counts[target] = vote_counts.get(target, 0) + 1
-
-        # Check if killer has been identified
-        killer = game_engine.killer.name
-        killer_votes = vote_counts.get(killer, 0)
-        correctly_identified = killer_votes >= 3
-
-        # Create outcome
+        majority_agent = None
+        for agent, count in vote_counts.items():
+            if count >= 3:
+                majority_agent = agent
+                break
         outcome = {
-            "correctly_identified": correctly_identified,
+            "majority_found": majority_agent is not None,
+            "majority_agent": majority_agent,
             "vote_distribution": vote_counts,
-            "rounds_played": 5,
+            "rounds_played": rounds_played,
+            "correctly_identified": majority_agent == game_engine.killer.name
+            if majority_agent
+            else False,
         }
-
-        # If not identified, run 5 more rounds
-        if not correctly_identified:
-            for round_num in range(6, 11):
-                try:
-                    round_results = game_engine.run_round(round_num)
-                    game_log.append(round_results)
-                except Exception as e:
-                    print(f"Error in round {round_num} of game {game_id}: {str(e)}")
-                    return None
-
-            # Conduct final voting
-            try:
-                votes = game_engine.conduct_voting()
-
-                # Count votes
-                vote_counts = {}
-                for agent, vote_info in votes.items():
-                    target = vote_info["vote"]
-                    vote_counts[target] = vote_counts.get(target, 0) + 1
-
-                # Check if killer has been identified
-                killer_votes = vote_counts.get(killer, 0)
-                correctly_identified = killer_votes >= 3
-
-                # Update outcome
-                outcome = {
-                    "correctly_identified": correctly_identified,
-                    "vote_distribution": vote_counts,
-                    "rounds_played": 10,
-                }
-            except Exception as e:
-                print(f"Error in final voting of game {game_id}: {str(e)}")
-                return None
-
-        # Compile results
         results = {
             "game_id": game_id,
             "model": model_name,
-            "actual_killer": killer,
-            "rounds": game_log,
-            "votes": votes,
-            "outcome": outcome,
+            "actual_killer": game_engine.killer.name,
+            "rounds": list(game_log),
+            "votes": dict(votes),
+            "outcome": dict(outcome),
         }
-
-        # Save results
         save_game_results(results)
-
         print(
-            f"Game {game_id} completed. Killer: {killer}. Correctly identified: {correctly_identified} by {model_name} LLM."
+            f"Game {game_id} completed after 10 rounds. Majority vote for {majority_agent}. Killer: {game_engine.killer.name}. Correctly identified: {outcome['correctly_identified']} by {model_name} LLM."
         )
         return results
     except Exception as e:
-        print(f"Error in game {game_id}: {str(e)}")
+        print(f"Error in final voting of game {game_id}: {str(e)}")
         return None
-
-
-def save_game_results(results):
-    """Save the game results to a JSON file and update the CSV summary"""
-    # Create directory if it doesn't exist
-    os.makedirs("game_results", exist_ok=True)
-
-    # Save to JSON
-    filename = f"game_results/game_{results['game_id']}.json"
-    with open(filename, "w") as f:
-        json.dump(results, f, indent=2)
-
-    # Create row for results
-    data = {
-        "game_id": results["game_id"],
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "model": results["model"],
-        "actual_killer": results["actual_killer"],
-        "rounds_played": results["outcome"]["rounds_played"],
-        "correctly_identified": results["outcome"]["correctly_identified"],
-    }
-
-    # Add vote information
-    for agent, vote_info in results["votes"].items():
-        data[f"{agent}_voted_for"] = vote_info["vote"]
-
-    # Check if file exists
-    csv_file = "game_results/all_games.csv"
-    if os.path.exists(csv_file):
-        df = pd.read_csv(csv_file)
-        df = pd.concat([df, pd.DataFrame([data])], ignore_index=True)
-    else:
-        df = pd.DataFrame([data])
-
-    df.to_csv(csv_file, index=False)
 
 
 def get_existing_game_counts():
@@ -215,24 +205,12 @@ def run_batch_games(models=None, games_per_model=25, parallel=False, max_workers
                     all_jobs.append((model, game_id))
                     model_counts[i] = (model, count - 1)
 
-        # Run games in parallel with improved allocation strategy
+        # Submit all jobs at once; executor will handle max_workers
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
-            # Submit jobs in order - this ensures we're not hitting the same API with multiple workers
-            futures = []
-            batch_size = min(max_workers, len(active_models))
-
-            # Submit jobs in batches to ensure model diversity
-            for i in range(0, len(all_jobs), batch_size):
-                batch = all_jobs[i : i + batch_size]
-                for model, game_id in batch:
-                    futures.append(executor.submit(run_single_game, model, game_id))
-
-                # Wait for this batch to complete before starting the next
-                # to ensure we don't have too many concurrent requests to the same API
-                if i + batch_size < len(all_jobs):
-                    time.sleep(2)  # Short delay between batches
-
-            # Process results as they complete
+            futures = [
+                executor.submit(run_single_game, model, game_id)
+                for model, game_id in all_jobs
+            ]
             for future in tqdm(
                 as_completed(futures), total=len(futures), desc="Running games"
             ):

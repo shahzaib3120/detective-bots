@@ -8,6 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from game_engine import GameEngine
 from llm_interface import get_available_models
+from utils import save_game_results
 
 # Load environment variables
 load_dotenv()
@@ -146,10 +147,13 @@ def run_game_round():
     if st.session_state.round_in_progress:
         return
 
-    st.session_state.round_in_progress = True
+    # Set the current questioner at the start of the round
     game_engine = st.session_state.game_engine
+    questioner_idx = (st.session_state.current_round - 1) % len(game_engine.agents)
+    st.session_state.current_questioner = game_engine.agents[questioner_idx].name
 
-    # We've already set the questioner state before, so no need to set it again
+    st.session_state.round_in_progress = True
+
     # Create a placeholder for progress feedback
     progress_placeholder = st.empty()
     progress_placeholder.info(f"Running round {st.session_state.current_round}...")
@@ -165,7 +169,7 @@ def run_game_round():
         st.session_state.game_log.append(round_results)
         st.session_state.current_round += 1
 
-        # Set next action (voting after round 5, otherwise next round)
+        # After round 5, conduct voting after each round
         if st.session_state.current_round > 5:
             st.session_state.next_action = "voting"
         else:
@@ -182,7 +186,7 @@ def run_game_round():
 
 
 def conduct_voting():
-    """Conduct the voting phase"""
+    """Conduct the voting phase after round 5 and after each subsequent round, stopping if a majority is found."""
     if st.session_state.round_in_progress:
         return
 
@@ -209,20 +213,37 @@ def conduct_voting():
             vote_counts[target] = vote_counts.get(target, 0) + 1
         st.session_state.vote_counts = vote_counts
 
-        # Check if killer has been identified
-        killer = game_engine.killer.name
-        killer_votes = vote_counts.get(killer, 0)
+        # Check for majority (3+ votes for any agent)
+        majority_agent = None
+        for agent, count in vote_counts.items():
+            if count >= 3:
+                majority_agent = agent
+                break
 
         # Always store vote information regardless of outcome
         st.session_state.game_outcome = {
-            "correctly_identified": killer_votes >= 3,
+            "majority_found": majority_agent is not None,
+            "majority_agent": majority_agent,
             "vote_distribution": vote_counts,
             "rounds_played": st.session_state.current_round - 1,
+            "correctly_identified": majority_agent == game_engine.killer.name
+            if majority_agent
+            else False,
         }
 
-        if killer_votes >= 3 or st.session_state.current_round > 10:
+        # Save after each voting
+        results = {
+            "game_id": st.session_state.game_id,
+            "model": st.session_state.model_name,
+            "actual_killer": st.session_state.game_engine.killer.name,
+            "rounds": st.session_state.game_log,
+            "votes": st.session_state.votes,
+            "outcome": st.session_state.game_outcome,
+        }
+        save_game_results(results)
+
+        if majority_agent or st.session_state.current_round > 20:
             st.session_state.game_complete = True
-            save_game_results()
         else:
             # Continue with next round
             st.session_state.next_action = "round"
@@ -235,53 +256,6 @@ def conduct_voting():
     finally:
         st.session_state.round_in_progress = False
         st.rerun()
-
-
-def save_game_results():
-    """Save the game results to a JSON file"""
-    results = {
-        "game_id": st.session_state.game_id,
-        "model": st.session_state.model_name,
-        "actual_killer": st.session_state.game_engine.killer.name,
-        "rounds": st.session_state.game_log,
-        "votes": st.session_state.votes,
-        "outcome": st.session_state.game_outcome,
-    }
-
-    # Create directory if it doesn't exist
-    os.makedirs("game_results", exist_ok=True)
-
-    # Save to JSON
-    filename = f"game_results/game_{st.session_state.game_id}.json"
-    with open(filename, "w") as f:
-        json.dump(results, f, indent=2)
-
-    # Also append to CSV for easier analysis
-    import pandas as pd
-
-    # Create row for results
-    data = {
-        "game_id": st.session_state.game_id,
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "model": st.session_state.model_name,
-        "actual_killer": st.session_state.game_engine.killer.name,
-        "rounds_played": st.session_state.game_outcome["rounds_played"],
-        "correctly_identified": st.session_state.game_outcome["correctly_identified"],
-    }
-
-    # Add vote information
-    for agent, vote_info in st.session_state.votes.items():
-        data[f"{agent}_voted_for"] = vote_info["vote"]
-
-    # Check if file exists
-    csv_file = "game_results/all_games.csv"
-    if os.path.exists(csv_file):
-        df = pd.read_csv(csv_file)
-        df = pd.concat([df, pd.DataFrame([data])], ignore_index=True)
-    else:
-        df = pd.DataFrame([data])
-
-    df.to_csv(csv_file, index=False)
 
 
 # UI Layout
@@ -359,7 +333,12 @@ if st.session_state.game_initialized:
 
                 # Build status text
                 status_text = ""
-                if is_questioner:
+                if (
+                    st.session_state.next_action == "voting"
+                    and not st.session_state.game_complete
+                ):
+                    status_text = "Currently voting"
+                elif is_questioner:
                     status_text = "Currently asking"
                 if is_killer:
                     status_text += (

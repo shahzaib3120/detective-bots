@@ -155,13 +155,14 @@ class GameEngine:
         """Have each agent vote on who they think the killer is"""
         votes = {}
 
-        # Create a list of all agent names for the prompt
-        all_agent_names = [agent.name for agent in self.agents]
-        agent_names_str = ", ".join([f'"{name}"' for name in all_agent_names])
-
         for agent in self.agents:
             personality_prompt = PERSONALITY_PROMPTS[agent.personality_type]
             conversation_history = self._format_conversation_history()
+
+            # Only valid agents (not self)
+            valid_agents = [a.name for a in self.agents if a.name != agent.name]
+            agent_names_bullets = "\n".join([f"  - {name}" for name in valid_agents])
+            agent_names_str = ", ".join([f'"{name}"' for name in valid_agents])
 
             # Try up to 3 times to get a valid vote
             max_attempts = 3
@@ -174,7 +175,7 @@ class GameEngine:
                         f"IMPORTANT: Previous response could not be used. "
                         f"You must format your response as valid JSON and vote for an agent that is not yourself. "
                         f"Valid agents to vote for (excluding yourself): "
-                        f"{', '.join([a.name for a in self.agents if a.name != agent.name])}"
+                        f"{', '.join(valid_agents)}"
                         f" Previous error: {previous_error}"
                     )
 
@@ -186,7 +187,8 @@ class GameEngine:
                     "rounds_played": len(self.conversation_history),
                     "conversation_history": conversation_history,
                     "agent_names": agent_names_str,
-                    "agent_names_list": all_agent_names,
+                    "agent_names_list": valid_agents,
+                    "agent_names_bullets": agent_names_bullets,
                     "retry_guidance": retry_guidance,
                 }
 
@@ -218,23 +220,12 @@ class GameEngine:
                     reasoning = vote_data.get("reasoning", "").strip()
 
                     # Validate the vote target is an actual agent name
-                    valid_agents = [a.name for a in self.agents if a.name != agent.name]
                     if vote_target not in valid_agents:
                         print(
                             f"[{self.model_name}] Invalid vote from {agent.name} (attempt {attempt + 1}): '{vote_target}' is not a valid agent"
                         )
                         raise ValueError(
                             f"Invalid vote target: {vote_target}. Must be one of {valid_agents}."
-                        )
-                        if attempt < max_attempts - 1:
-                            continue  # Try again with better guidance
-
-                        # Last resort: pick random agent that's not self
-                        original_vote = vote_target
-                        vote_target = random.choice(valid_agents)
-                        reasoning = f"{reasoning} [Note: Original vote '{original_vote}' was invalid, randomly selected instead]"
-                        print(
-                            f"[{self.model_name}] Warning: {agent.name} vote invalid after {max_attempts} attempts, using random: {vote_target}"
                         )
                     else:
                         # Valid vote, exit retry loop
